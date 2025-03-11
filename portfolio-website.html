@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sylvia | AI Chatbot Developer</title>
+  <style>
+    :root {
+      --primary: #E2E8F0;
+      --secondary: #A0AEC0;
+      --accent: #6C5CE7;
+      --accent-light: #A29BFE;
+      --dark: #0F172A;
+      --darker: #020617;
+      --success: #48BB78;
+      --gradient-start: #1E293B;
+      --gradient-end: #0F172A;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      background-attachment: fixed;
+      color: var(--primary);
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      color: var(--accent-light);
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    a:hover {
+      color: #A29BFE;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    header {
+      padding: 2rem 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      color: var(--primary);
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent-light);
+    }
+    
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.7));
+      border-radius: 0.5rem;
+      margin-top: 2rem;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+    }
+    
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+      color: white;
+    }
+    
+    .section {
+      padding: 5rem 0;
+    }
+    
+    .section:nth-child(even) {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.5));
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .skill-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(108, 92, 231, 0.2);
+    }
+    
+    .skill-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .project-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(108, 92, 231, 0.2);
+    }
+    
+    .project-image {
+      height: 200px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    
+    .project-content {
+      padding: 1.5rem;
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .tag {
+      background: rgba(108, 92, 231, 0.2);
+      color: var(--accent-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+    }
+    
+    .metrics {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .metric {
+      background: rgba(72, 187, 120, 0.2);
+      color: var(--success);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid rgba(72, 187, 120, 0.3);
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(108, 92, 231, 0.2);
+    }
+    
+    .contact-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--gradient-start), var(--darker));
+      color: var(--secondary);
+      padding: 3rem 0;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-link {
+      color: var(--primary);
+      background: rgba(108, 92, 231, 0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+    }
+    
+    .social-link:hover {
+      background: rgba(108, 92, 231, 0.4);
+      transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .projects-grid,
+      .skills-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Subtle gradient animations */
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Sylvia<span>.</span></div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Sylvia</h1>
+        <p class="tagline">AI Chatbot Developer specializing in lead qualification for B2B SaaS</p>
+        <p>Converting more leads with less effort through intelligent automation</p>
+        <a href="#contact" class="cta-button">Let's Work Together</a>
+      </div>
+    </div>
+  </section>
+  
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>Sylvia is an AI automation specialist and chatbot developer, specializing in AI-powered lead qualification for B2B SaaS companies. With expertise in HubSpot, AI chatbots, and sales automation, Sylvia designs intelligent chat solutions that streamline lead capture, qualify prospects, and automate sales workflows—helping businesses convert more leads with less effort.</p>
+      <p>Passionate about AI-driven growth strategies, Sylvia combines cutting-edge technology with a results-driven approach to build custom chatbots that engage, nurture, and convert leads 24/7.</p>
+      <p>Let's automate your sales pipeline and scale smarter with AI. 🚀</p>
+    </div>
+  </section>
+  
+  <section id="skills" class="section">
+    <div class="container">
+      <h2>Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-robot"></i></div>
+          <h3>AI Chatbot Development</h3>
+          <p>Building intelligent conversation flows that engage visitors and qualify leads automatically</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Lead Qualification</h3>
+          <p>Creating scoring systems that identify high-value prospects based on conversation data</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+          <h3>Sales Automation</h3>
+          <p>Streamlining workflows to move leads through the sales pipeline efficiently</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-database"></i></div>
+          <h3>HubSpot Integration</h3>
+          <p>Connecting chatbots with HubSpot CRM for seamless lead management</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-brain"></i></div>
+          <h3>NLP Implementation</h3>
+          <p>Leveraging natural language processing for better lead interactions</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-user-check"></i></div>
+          <h3>Lead Scoring</h3>
+          <p>Developing algorithms that prioritize leads based on engagement and fit</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-robot fa-3x"></i>
+          </div>
+          <div class="project-content">
+            <h3>SaaS Qualifier Bot</h3>
+            <p>Developed an AI-powered chatbot for a B2B SaaS platform that qualifies leads through a conversational assessment of budget, timeline, and specific needs.</p>
+            <div class="project-tags">
+              <span class="tag">AI</span>
+              <span class="tag">Lead Qualification</span>
+              <span class="tag">HubSpot</span>
+            </div>
+            <div class="metrics">
+              <span class="metric">45% Increase in Qualified Leads</span>
+              <span class="metric">68% Automation Rate</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-comments fa-3x"></i>
+          </div>
+          <div class="project-content">
+            <h3>Enterprise Lead Scoring Chatbot</h3>
+            <p>Created a sophisticated chatbot for an enterprise software company that scores leads in real-time based on conversation data and integrates with their CRM.</p>
+            <div class="project-tags">
+              <span class="tag">Enterprise</span>
+              <span class="tag">Lead Scoring</span>
+              <span class="tag">CRM Integration</span>
+            </div>
+            <div class="metrics">
+              <span class="metric">32% Higher Conversion Rate</span>
+              <span class="metric">24hr Response Time Eliminated</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-funnel-dollar fa-3x"></i>
+          </div>
+          <div class="project-content">
+            <h3>Sales Pipeline Automation Bot</h3>
+            <p>Designed a chatbot that automates the entire sales pipeline from initial contact to meeting scheduling, with integrated qualification at each step.</p>
+            <div class="project-tags">
+              <span class="tag">Sales Automation</span>
+              <span class="tag">Pipeline Management</span>
+              <span class="tag">Meeting Scheduling</span>
+            </div>
+            <div class="metrics">
+              <span class="metric">78% Reduction in Admin Tasks</span>
+              <span class="metric">3.5x ROI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Let's Connect</h2>
+      <p>Ready to automate your lead qualification process and scale your sales with AI? Get in touch!</p>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <h3>Email</h3>
+          <p><a href="mailto:sylvianwoye78@gmail.com">sylvianwoye78@gmail.com</a></p>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-calendar-check"></i></div>
+          <h3>Schedule a Call</h3>
+          <p>Book a free 30-minute consultation to discuss your project</p>
+          <a href="#" class="cta-button">Book Now</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Free Assessment</h3>
+          <p>Get a free assessment of your current lead qualification process</p>
+          <a href="#" class="cta-button">Request Assessment</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>© 2025 Sylvia. All rights reserved.</p>
+        <p>AI Chatbot Developer specializing in lead qualification for B2B SaaS</p>
+        
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple scroll behavior for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
